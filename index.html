@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
+      crossorigin="anonymous"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
+      crossorigin="anonymous"
+    ></script>
+  </head>
+  <body>
+    <div class="container" id="step1">
+      <div class="row">
+        <div class="col border p-5 m-5">
+          <form action="" >
+            <label for="fname" class="form-label">First name</label>
+            <input
+              class="form-control"
+              type="text"
+              name="fname"
+              id="fname"
+              placeholder="enter your firstname"
+            />
+            <p class="text-danger text-center fs-5" id="validation1">
+              your first name is not valid
+            </p>
+            <label for="lname" class="form-label">last name</label>
+            <input
+              class="form-control"
+              type="text"
+              name="lname"
+              id="lname"
+              placeholder="enter your lastname"
+            />
+            <p class="text-danger text-center fs-5" id="validation2">
+              your first name is not valid
+            </p>
+          </form>
+          <div style="display: flex; justify-content: end">
+            <button class="btn btn-success pe-4 ps-4 mt-4" id="next">
+              Next
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="container " id="step2">
+      <div class="row">
+        <div class="col border p-5 m-5">
+          <form action="" >
+            <label for="phone_number" class="form-label">phone number</label>
+            <input
+              class="form-control"
+              type=""
+              name="phone_number"
+              id="phone"
+              data-regex="phone_number"
+              placeholder="enter your phone  number"
+            />
+            <p class="text-danger text-center fs-5" id="validation1">
+              your phone number is not valid
+            </p>
+            <label for="email" class="form-label">email adress </label>
+            <input
+              class="form-control"
+              type="email"
+              name="email"
+              id="email"
+              data-regex="email"
+              placeholder="enter your email adress"
+            />
+            <p class="text-danger text-center fs-5" id="validation2">
+              your email adress is not valid
+            </p>
+          </form>
+          <button class="btn btn-danger pe-4 ps-4 mt-4" id="prev">
+            prev
+          </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      //step1
+      $(function () {
+        $('#step2').hide()
+        $("#fname").keyup(function () {
+          let fname = $("#fname").val();
+          if (fname == "fafa") {
+            $("#validation1").hide();
+          } else {
+            $("#validation1").show();
+          }
+        });
+        $("#lname").keyup(function () {
+          let fname = $("#lname").val();
+          if (fname == "khaqani") {
+            $("#validation2").hide();
+          } else {
+            $("#validation2").show();
+          }
+        });
+
+        // $("input").keyup(function () {
+        //   let inputVal = $(this).val();
+        //   if (inputVal == "fafa" || inputVal == "khaqani") {
+        //     $(this).next().hide();
+        //   } else {
+        //     $(this).next().show();
+        //   }
+        // });
+
+        //step2
+        $("#next").click(function () {
+          $("#step1").hide();
+          $("#step2").show();
+        });
+
+        $("input[data-regex]").keyup(function () {
+          let regType = $(this).attr("data-regex");
+
+          let regex = null;
+          if (regType == "phone_number") {
+            regex = /^(0|\+98)?9\d{9}$/;
+          }
+
+          if (regType == "email") {
+            regex =
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|.(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+          }
+
+          let inputVal = $(this).val();
+          if (regex.test(inputVal)) {
+            $(this).next().hide();
+          } else {
+            $(this).next().show();
+          }
+          $("#prev").click(function () {
+            $("#step1").show();
+            $("#step2").hide();
+          
+        });
+          // else if (regType == "national_code") regex = /^[0-9]{10}$/;
+          // let inputVal = $(this).val();
+          // if (regex.test(inputVal)) {
+          //   $(this).next().hide();
+          // } else {
+          //   $(this).next().show();
+          // }
+        });
+      });
+    </script>
+  </body>
+</html>
